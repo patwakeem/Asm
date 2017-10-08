@@ -1,0 +1,1 @@
+Java client for Apica Synthetic Monitoring, using this library requires an ASM auth_ticket.
