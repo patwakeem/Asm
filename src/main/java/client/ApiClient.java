@@ -1,6 +1,7 @@
 package client;
 
 import plainobjects.*;
+import requests.CreateCheckRequest;
 import requests.GetCheckHistoryRequest;
 
 import java.io.IOException;
@@ -18,10 +19,10 @@ interface ApiClient {
     Optional<List<AsmLocation>> getLocationsByCheckType(CheckType checkType) throws IOException;
 
     ResponseWrapper runCheck(int id) throws IOException;
-//
-//    ResponseBody createCheck()  throws IOException;
-//
-//    ResponseBody deleteCheck()  throws IOException;
+
+    ResponseWrapper createCheck(CreateCheckRequest createCheckRequest) throws IOException;
+
+    ResponseWrapper deleteCheck(int id) throws IOException;
 //
 //    FprUrlResults getFprUrlDetailsByResultId() throws IOException;
 //
@@ -29,9 +30,9 @@ interface ApiClient {
 //
 //    List<Integer> getGroupChecks() throws IOException;
 //
-//    ResponseBody createGroup() throws IOException;
+//    ResponseWrapper createGroup() throws IOException;
 //
-//    ResponseBody deleteGroup() throws IOException;
+//    ResponseWrapper deleteGroup() throws IOException;
 //
-//    ResponseBody updateGroup() throws IOException;
+//    ResponseWrapper updateGroup() throws IOException;
 }

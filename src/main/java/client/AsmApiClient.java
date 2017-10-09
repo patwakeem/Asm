@@ -3,6 +3,7 @@ package client;
 import authentication.AsmAuthentication;
 import okhttp3.ResponseBody;
 import plainobjects.*;
+import requests.CreateCheckRequest;
 import requests.GetCheckHistoryRequest;
 import retrofit2.Response;
 
@@ -22,6 +23,12 @@ public class AsmApiClient implements ApiClient {
     }
 
     public AsmApiClient(AsmAuthentication asmCredentialsAuthentication) {
+        this.authTicket = asmCredentialsAuthentication.toString();
+        setSiloFromObject(asmCredentialsAuthentication.getSilo());
+    }
+
+    AsmApiClient(AsmAuthentication asmCredentialsAuthentication, AsmApiService asmApiService) {
+        apiService = asmApiService;
         this.authTicket = asmCredentialsAuthentication.toString();
         setSiloFromObject(asmCredentialsAuthentication.getSilo());
     }
@@ -63,6 +70,18 @@ public class AsmApiClient implements ApiClient {
     @Override
     public ResponseWrapper runCheck(int id) throws IOException {
         Response<ResponseBody> executionResponse = apiService.runCheck(silo, id, authTicket).execute();
+        return new RunCheckResult(executionResponse);
+    }
+
+    @Override
+    public ResponseWrapper createCheck(CreateCheckRequest createCheckRequest) throws IOException {
+        Response<ResponseBody> executionResponse = apiService.createCheck(silo, createCheckRequest.getCheckTypeAsString(), createCheckRequest.getBody(), authTicket).execute();
+        return new RunCheckResult(executionResponse);
+    }
+
+    @Override
+    public ResponseWrapper deleteCheck(int id) throws IOException {
+        Response<ResponseBody> executionResponse = apiService.deleteCheck(silo, id, authTicket).execute();
         return new RunCheckResult(executionResponse);
     }
 
