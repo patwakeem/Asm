@@ -1,23 +1,23 @@
 package client;
 
-import okhttp3.ResponseBody;
 import plainobjects.*;
+import requests.GetCheckHistoryRequest;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 interface ApiClient {
 
-    List<AsmCheck> getAllChecks() throws IOException;
+    Optional<List<AsmCheck>> getAllChecks() throws IOException;
 
-    AsmCheck getCheck(int id) throws IOException;
+    Optional<AsmCheck> getCheck(int id) throws IOException;
 
-//    TODO: Finish these.
-//    List<AsmCheckDetailHistory> getCheckHistory() throws IOException;
-//
-//    List<AsmLocation> getLocationsByCheckType() throws IOException;
-//
-//    ResponseBody runCheck()  throws IOException;
+    Optional<List<AsmCheckDetailHistory>> getCheckHistory(GetCheckHistoryRequest getCheckHistoryRequest) throws IOException;
+
+    Optional<List<AsmLocation>> getLocationsByCheckType(CheckType checkType) throws IOException;
+
+    ResponseWrapper runCheck(int id) throws IOException;
 //
 //    ResponseBody createCheck()  throws IOException;
 //

@@ -2,19 +2,17 @@ package client;
 
 import authentication.AsmAuthentication;
 import authentication.AsmEnvironmentAuthentication;
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import plainobjects.AsmCheck;
-import plainobjects.Silo;
 
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
-public class AsmApiClientTest {
-
+public class AsmApiClientIntegrationTest {
 
     private ApiClient asmApiClient;
     private final AsmAuthentication authentication = new AsmEnvironmentAuthentication();
@@ -24,11 +22,15 @@ public class AsmApiClientTest {
         asmApiClient = new AsmApiClient(authentication);
     }
 
-
     @Test
     public void getAllChecks() throws Exception {
+        Optional<List<AsmCheck>> allChecks = asmApiClient.getAllChecks();
+        assertNotNull(allChecks.get());
+    }
 
-        List<AsmCheck> allChecks = asmApiClient.getAllChecks();
-
+    @Test
+    public void testInvalidCheckIdIsNotPresent() throws Exception {
+        Optional<AsmCheck> check = asmApiClient.getCheck(-1);
+        assertFalse(check.isPresent());
     }
 }

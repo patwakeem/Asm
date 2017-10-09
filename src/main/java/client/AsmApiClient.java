@@ -1,12 +1,14 @@
 package client;
 
 import authentication.AsmAuthentication;
-import authentication.AsmCredentialsAuthentication;
-import plainobjects.AsmCheck;
-import plainobjects.Silo;
+import okhttp3.ResponseBody;
+import plainobjects.*;
+import requests.GetCheckHistoryRequest;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 public class AsmApiClient implements ApiClient {
 
@@ -15,13 +17,11 @@ public class AsmApiClient implements ApiClient {
     private int silo;
 
     public AsmApiClient(String authTicket, Silo silo)  {
-
         this.authTicket = authTicket;
         setSiloFromObject(silo);
     }
 
     public AsmApiClient(AsmAuthentication asmCredentialsAuthentication) {
-
         this.authTicket = asmCredentialsAuthentication.toString();
         setSiloFromObject(asmCredentialsAuthentication.getSilo());
     }
@@ -31,13 +31,39 @@ public class AsmApiClient implements ApiClient {
     }
 
     @Override
-    public List<AsmCheck> getAllChecks() throws IOException {
-        return apiService.getAllChecks(silo, authTicket).execute().body();
+    public Optional<List<AsmCheck>> getAllChecks() throws IOException {
+        return Optional.ofNullable(apiService.getAllChecks(silo, authTicket).execute().body());
     }
 
     @Override
-    public AsmCheck getCheck(int id) throws IOException {
-        return apiService.getCheck(silo, id, authTicket).execute().body();
+    public Optional<AsmCheck> getCheck(int id) throws IOException {
+        return Optional.ofNullable(apiService.getCheck(silo, id, authTicket).execute().body());
+    }
+
+    @Override
+    public Optional<List<AsmCheckDetailHistory>> getCheckHistory(GetCheckHistoryRequest getCheckHistoryRequest) throws IOException {
+
+        List<AsmCheckDetailHistory> asmCheckDetailHistories = apiService.getCheckHistory(
+                silo,
+                getCheckHistoryRequest.getCheckId(),
+                getCheckHistoryRequest.getFromUtc(),
+                getCheckHistoryRequest.getToUtc(),
+                1,
+                authTicket).execute().body();
+
+        return Optional.ofNullable(asmCheckDetailHistories);
+    }
+
+    @Override
+    public Optional<List<AsmLocation>> getLocationsByCheckType(CheckType checkType) throws IOException {
+        List<AsmLocation> body = apiService.getLocationsByCheckType(silo, checkType.toString(), authTicket).execute().body();
+        return Optional.ofNullable(body);
+    }
+
+    @Override
+    public ResponseWrapper runCheck(int id) throws IOException {
+        Response<ResponseBody> executionResponse = apiService.runCheck(silo, id, authTicket).execute();
+        return new RunCheckResult(executionResponse);
     }
 
     public String getAuthTicket() {

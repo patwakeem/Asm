@@ -15,9 +15,7 @@ public class AsmEnvironmentAuthentication implements AsmAuthentication {
         String apiKey = env.get("ASM_API_KEY");
         String asmApiSilo = env.get("ASM_API_SILO");
 
-        Silo s = Integer.valueOf(asmApiSilo) == 1 ? Silo.ONE : Silo.TWO;
-
-        this.silo = s;
+        this.silo = Integer.valueOf(asmApiSilo) == 1 ? Silo.ONE : Silo.TWO;
         this.authTicket = apiKey;
     }
 
