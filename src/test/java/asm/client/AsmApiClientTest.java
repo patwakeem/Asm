@@ -2,6 +2,7 @@ package asm.client;
 
 import asm.authentication.AsmAuthentication;
 import asm.authentication.AsmEnvironmentAuthentication;
+import asm.plainobjects.AddGroupBody;
 import asm.plainobjects.CheckType;
 import asm.plainobjects.CreateBrowserCheckBody;
 import asm.plainobjects.CreateCheckBody;
@@ -33,7 +34,6 @@ public class AsmApiClientTest {
 
     @Test
     public void testGetAllChecks() throws Exception {
-
         Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
 
@@ -47,7 +47,6 @@ public class AsmApiClientTest {
 
     @Test
     public void testGetCheck() throws Exception {
-
         Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
 
@@ -61,7 +60,6 @@ public class AsmApiClientTest {
 
     @Test
     public void testGetCheckHistory() throws IOException {
-
         Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new ArrayList<>());
         String utcTime = DateHelper.formatUnixTimeForAsmApi(System.currentTimeMillis());
@@ -76,7 +74,6 @@ public class AsmApiClientTest {
 
     @Test
     public void testGetLocationsByCheckType() throws IOException {
-
         Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new ArrayList<>());
 
@@ -104,7 +101,6 @@ public class AsmApiClientTest {
 
     @Test
     public void testCreateCheck() throws IOException {
-
         Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
 
@@ -130,5 +126,72 @@ public class AsmApiClientTest {
         asmApiClient.deleteCheck(1);
 
         Mockito.verify(mockService).deleteCheck(1, 1, authentication.toString());
+    }
+
+    @Test
+    public void testGetGroups() throws IOException {
+        Call mockedReturn = Mockito.mock(Call.class);
+        Response r = Response.success(new Object());
+
+        Mockito.doReturn(mockedReturn).when(mockService).getGroups(1, authentication.toString());
+        Mockito.doReturn(r).when(mockedReturn).execute();
+
+        asmApiClient.getGroups();
+
+        Mockito.verify(mockService).getGroups(1, authentication.toString());
+    }
+
+    @Test
+    public void testGetGroupChecks() throws IOException {
+        Call mockedReturn = Mockito.mock(Call.class);
+        Response r = Response.success(new Object());
+
+        Mockito.doReturn(mockedReturn).when(mockService).getGroupChecks(1, 1, authentication.toString());
+        Mockito.doReturn(r).when(mockedReturn).execute();
+
+        asmApiClient.getGroupChecks(1);
+
+        Mockito.verify(mockService).getGroupChecks(1, 1, authentication.toString());
+    }
+
+    @Test
+    public void testCreateGroup() throws IOException {
+        Call mockedReturn = Mockito.mock(Call.class);
+        Response r = Response.success(new Object());
+        AddGroupBody addGroupBody = new AddGroupBody();
+
+        Mockito.doReturn(mockedReturn).when(mockService).createGroup(1, addGroupBody, authentication.toString());
+        Mockito.doReturn(r).when(mockedReturn).execute();
+
+        asmApiClient.createGroup(addGroupBody);
+
+        Mockito.verify(mockService).createGroup(1, addGroupBody, authentication.toString());
+    }
+
+    @Test
+    public void testDeleteGroup() throws IOException {
+        Call mockedReturn = Mockito.mock(Call.class);
+        Response r = Response.success(new Object());
+
+        Mockito.doReturn(mockedReturn).when(mockService).deleteGroup(1, 1, authentication.toString());
+        Mockito.doReturn(r).when(mockedReturn).execute();
+
+        asmApiClient.deleteGroup(1);
+
+        Mockito.verify(mockService).deleteGroup(1, 1, authentication.toString());
+    }
+
+    @Test
+    public void testUpdateGroup() throws IOException {
+        Call mockedReturn = Mockito.mock(Call.class);
+        Response r = Response.success(new Object());
+        AddGroupBody addGroupBody = new AddGroupBody();
+
+        Mockito.doReturn(mockedReturn).when(mockService).updateGroup(addGroupBody, 1, 1, authentication.toString());
+        Mockito.doReturn(r).when(mockedReturn).execute();
+
+        asmApiClient.updateGroup(1, addGroupBody);
+
+        Mockito.verify(mockService).updateGroup(addGroupBody, 1, 1, authentication.toString());
     }
 }

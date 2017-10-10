@@ -23,16 +23,16 @@ interface ApiClient {
     ResponseWrapper createCheck(CreateCheckRequest createCheckRequest) throws IOException;
 
     ResponseWrapper deleteCheck(int id) throws IOException;
-//
+
 //    FprUrlResults getFprUrlDetailsByResultId() throws IOException;
-//
-//    List<AsmTopLevelGroup> getGroups() throws IOException;
-//
-//    List<Integer> getGroupChecks() throws IOException;
-//
-//    ResponseWrapper createGroup() throws IOException;
-//
-//    ResponseWrapper deleteGroup() throws IOException;
-//
-//    ResponseWrapper updateGroup() throws IOException;
+
+    Optional<List<AsmTopLevelGroup>> getGroups() throws IOException;
+
+    Optional<List<Integer>> getGroupChecks(int id) throws IOException;
+
+    ResponseWrapper createGroup(AddGroupBody addGroupBody) throws IOException;
+
+    ResponseWrapper deleteGroup(int id) throws IOException;
+
+    ResponseWrapper updateGroup(int id, AddGroupBody addGroupBody) throws IOException;
 }

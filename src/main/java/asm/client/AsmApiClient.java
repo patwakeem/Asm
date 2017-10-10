@@ -76,13 +76,41 @@ public class AsmApiClient implements ApiClient {
     @Override
     public ResponseWrapper createCheck(CreateCheckRequest createCheckRequest) throws IOException {
         Response<ResponseBody> executionResponse = apiService.createCheck(silo, createCheckRequest.getCheckTypeAsString(), createCheckRequest.getBody(), authTicket).execute();
-        return new RunCheckResult(executionResponse);
+        return new CreateCheckResult(executionResponse);
     }
 
     @Override
     public ResponseWrapper deleteCheck(int id) throws IOException {
         Response<ResponseBody> executionResponse = apiService.deleteCheck(silo, id, authTicket).execute();
-        return new RunCheckResult(executionResponse);
+        return new DeleteCheckResult(executionResponse);
+    }
+
+    @Override
+    public Optional<List<AsmTopLevelGroup>> getGroups() throws IOException {
+        return Optional.ofNullable(apiService.getGroups(silo, authTicket).execute().body());
+    }
+
+    @Override
+    public Optional<List<Integer>> getGroupChecks(int id) throws IOException {
+        return Optional.ofNullable(apiService.getGroupChecks(silo, id, authTicket).execute().body());
+    }
+
+    @Override
+    public ResponseWrapper createGroup(AddGroupBody addGroupBody) throws IOException {
+        Response<ResponseBody> createResponse = apiService.createGroup(silo, addGroupBody, authTicket).execute();
+        return new DeleteGroupResult(createResponse);
+    }
+
+    @Override
+    public ResponseWrapper deleteGroup(int id) throws IOException {
+        Response<ResponseBody> deleteResponse = apiService.deleteGroup(silo, id, authTicket).execute();
+        return new DeleteGroupResult(deleteResponse);
+    }
+
+    @Override
+    public ResponseWrapper updateGroup(int id, AddGroupBody addGroupBody) throws IOException {
+        Response<ResponseBody> updateResponse = apiService.updateGroup(addGroupBody, silo, id, authTicket).execute();
+        return new DeleteGroupResult(updateResponse);
     }
 
     public String getAuthTicket() {

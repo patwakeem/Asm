@@ -7,7 +7,7 @@ import retrofit2.Response;
 
 @Getter
 @AllArgsConstructor
-public class DeleteCheckResult implements ResponseWrapper {
+public class CreateGroupResult implements ResponseWrapper {
 
     private Response<ResponseBody> rawResponse;
 

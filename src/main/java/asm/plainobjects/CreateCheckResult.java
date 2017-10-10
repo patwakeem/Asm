@@ -13,6 +13,6 @@ public class CreateCheckResult implements ResponseWrapper {
 
     @Override
     public boolean isSuccessful() {
-        return false;
+        return rawResponse.isSuccessful();
     }
 }
