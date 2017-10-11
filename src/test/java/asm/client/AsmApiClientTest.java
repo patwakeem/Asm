@@ -2,10 +2,7 @@ package asm.client;
 
 import asm.authentication.AsmAuthentication;
 import asm.authentication.AsmEnvironmentAuthentication;
-import asm.plainobjects.AddGroupBody;
-import asm.plainobjects.CheckType;
-import asm.plainobjects.CreateBrowserCheckBody;
-import asm.plainobjects.CreateCheckBody;
+import asm.plainobjects.*;
 import asm.requests.CreateCheckRequest;
 import asm.requests.GetCheckHistoryRequest;
 import asm.util.DateHelper;
@@ -193,5 +190,19 @@ public class AsmApiClientTest {
         asmApiClient.updateGroup(1, addGroupBody);
 
         Mockito.verify(mockService).updateGroup(addGroupBody, 1, 1, authentication.toString());
+    }
+
+    @Test
+    public void testGetFprUrlDetailsByResultId() throws IOException {
+        Call mockedReturn = Mockito.mock(Call.class);
+        Response r = Response.success(new Object());
+        GetFprResultByIdBody getFprResultByIdBody = new GetFprResultByIdBody();
+
+        Mockito.doReturn(mockedReturn).when(mockService).getFprUrlDetailsByResultId(1, 1, getFprResultByIdBody, authentication.toString());
+        Mockito.doReturn(r).when(mockedReturn).execute();
+
+        asmApiClient.getFprUrlDetailsByResultId(1, getFprResultByIdBody);
+
+        Mockito.verify(mockService).getFprUrlDetailsByResultId(1, 1, getFprResultByIdBody, authentication.toString());
     }
 }

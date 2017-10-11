@@ -43,8 +43,8 @@ public class AsmApiClient implements ApiClient {
     }
 
     @Override
-    public Optional<AsmCheck> getCheck(int id) throws IOException {
-        return Optional.ofNullable(apiService.getCheck(silo, id, authTicket).execute().body());
+    public Optional<AsmCheck> getCheck(int checkId) throws IOException {
+        return Optional.ofNullable(apiService.getCheck(silo, checkId, authTicket).execute().body());
     }
 
     @Override
@@ -68,8 +68,8 @@ public class AsmApiClient implements ApiClient {
     }
 
     @Override
-    public ResponseWrapper runCheck(int id) throws IOException {
-        Response<ResponseBody> executionResponse = apiService.runCheck(silo, id, authTicket).execute();
+    public ResponseWrapper runCheck(int checkId) throws IOException {
+        Response<ResponseBody> executionResponse = apiService.runCheck(silo, checkId, authTicket).execute();
         return new RunCheckResult(executionResponse);
     }
 
@@ -80,8 +80,8 @@ public class AsmApiClient implements ApiClient {
     }
 
     @Override
-    public ResponseWrapper deleteCheck(int id) throws IOException {
-        Response<ResponseBody> executionResponse = apiService.deleteCheck(silo, id, authTicket).execute();
+    public ResponseWrapper deleteCheck(int checkId) throws IOException {
+        Response<ResponseBody> executionResponse = apiService.deleteCheck(silo, checkId, authTicket).execute();
         return new DeleteCheckResult(executionResponse);
     }
 
@@ -91,8 +91,8 @@ public class AsmApiClient implements ApiClient {
     }
 
     @Override
-    public Optional<List<Integer>> getGroupChecks(int id) throws IOException {
-        return Optional.ofNullable(apiService.getGroupChecks(silo, id, authTicket).execute().body());
+    public Optional<List<Integer>> getGroupChecks(int groupId) throws IOException {
+        return Optional.ofNullable(apiService.getGroupChecks(silo, groupId, authTicket).execute().body());
     }
 
     @Override
@@ -102,15 +102,23 @@ public class AsmApiClient implements ApiClient {
     }
 
     @Override
-    public ResponseWrapper deleteGroup(int id) throws IOException {
-        Response<ResponseBody> deleteResponse = apiService.deleteGroup(silo, id, authTicket).execute();
+    public ResponseWrapper deleteGroup(int groupId) throws IOException {
+        Response<ResponseBody> deleteResponse = apiService.deleteGroup(silo, groupId, authTicket).execute();
         return new DeleteGroupResult(deleteResponse);
     }
 
     @Override
-    public ResponseWrapper updateGroup(int id, AddGroupBody addGroupBody) throws IOException {
-        Response<ResponseBody> updateResponse = apiService.updateGroup(addGroupBody, silo, id, authTicket).execute();
+    public ResponseWrapper updateGroup(int groupId, AddGroupBody addGroupBody) throws IOException {
+        Response<ResponseBody> updateResponse = apiService.updateGroup(addGroupBody, silo, groupId, authTicket).execute();
         return new DeleteGroupResult(updateResponse);
+    }
+
+    @Override
+    public Optional<FprUrlResults> getFprUrlDetailsByResultId(int checkId, GetFprResultByIdBody getFprResultByIdBody) throws IOException {
+
+        return Optional.ofNullable(
+                apiService.getFprUrlDetailsByResultId(silo, checkId, getFprResultByIdBody, authTicket).execute().body()
+        );
     }
 
     public String getAuthTicket() {
