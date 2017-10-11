@@ -1,7 +1,6 @@
 package asm.client;
 
 import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -23,13 +22,12 @@ class AsmApi {
 
     private static void setupRestClient() {
 
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
-        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+//        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+//        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
         OkHttpClient client = new OkHttpClient.Builder()
                 .readTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
-                .addInterceptor(interceptor)
                 .build();
 
         Retrofit retrofit = new Retrofit.Builder()
