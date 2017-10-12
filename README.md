@@ -1,1 +1,1 @@
-Java asm.client for Apica Synthetic Monitoring, using this library requires an ASM auth_ticket.
+Java com.github.patwakeem.asm.client for Apica Synthetic Monitoring, using this library requires an ASM auth_ticket.
