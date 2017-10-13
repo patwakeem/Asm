@@ -4,6 +4,7 @@ import com.github.patwakeem.asm.authentication.AsmAuthentication;
 import com.github.patwakeem.asm.plainobjects.*;
 import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
+import lombok.NonNull;
 import okhttp3.ResponseBody;
 import retrofit2.Response;
 
@@ -74,6 +75,15 @@ public class AsmApiClient implements ApiClient {
     }
 
     @Override
+    public ResponseWrapper runCheck(@NonNull AsmCheck asmCheck) throws IOException {
+        if (asmCheck.getId() == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return runCheck(asmCheck.getId());
+    }
+
+    @Override
     public ResponseWrapper createCheck(CreateCheckRequest createCheckRequest) throws IOException {
         Response<ResponseBody> executionResponse = apiService.createCheck(silo, createCheckRequest.getCheckTypeAsString(), createCheckRequest.getBody(), authTicket).execute();
         return new CreateCheckResult(executionResponse);
@@ -83,6 +93,15 @@ public class AsmApiClient implements ApiClient {
     public ResponseWrapper deleteCheck(int checkId) throws IOException {
         Response<ResponseBody> executionResponse = apiService.deleteCheck(silo, checkId, authTicket).execute();
         return new DeleteCheckResult(executionResponse);
+    }
+
+    @Override
+    public ResponseWrapper deleteCheck(@NonNull AsmCheck asmCheck) throws IOException {
+        if (asmCheck.getId() == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return deleteCheck(asmCheck.getId());
     }
 
     @Override
@@ -105,6 +124,15 @@ public class AsmApiClient implements ApiClient {
     public ResponseWrapper deleteGroup(int groupId) throws IOException {
         Response<ResponseBody> deleteResponse = apiService.deleteGroup(silo, groupId, authTicket).execute();
         return new DeleteGroupResult(deleteResponse);
+    }
+
+    @Override
+    public ResponseWrapper deleteGroup(@NonNull AsmGroup asmGroup) throws IOException {
+        if (asmGroup.getId() == null) {
+            throw new IllegalArgumentException();
+        }
+
+        return deleteGroup(asmGroup.getId());
     }
 
     @Override
