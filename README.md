@@ -152,7 +152,7 @@ class Example {
 
 ```java
 class Example {
-    public void connectWithEnvironmentVariables() {
+    public void createCheck() {
         AsmAuthentication a = new AsmEnvironmentAuthentication();
         AsmApiClient asmApiClient = new AsmApiClient(a);
         
