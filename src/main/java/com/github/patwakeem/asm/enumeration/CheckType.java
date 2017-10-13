@@ -1,4 +1,4 @@
-package com.github.patwakeem.asm.plainobjects;
+package com.github.patwakeem.asm.enumeration;
 
 public enum CheckType {
     BROWSER {

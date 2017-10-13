@@ -1,6 +1,7 @@
 package com.github.patwakeem.asm.plainobjects;
 
 
+import com.github.patwakeem.asm.enumeration.AsmCheckInterval;
 import com.google.gson.JsonObject;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public interface CreateCheckBody {
     void setMaxAttempts(Integer i);
 
     void setIntervalSeconds(Integer i);
+
+    void setIntervalSeconds(AsmCheckInterval asmCheckInterval);
 
     void setLocationCode(String s);
 

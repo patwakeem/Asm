@@ -1,6 +1,6 @@
 package com.github.patwakeem.asm.authentication;
 
-import com.github.patwakeem.asm.plainobjects.Silo;
+import com.github.patwakeem.asm.enumeration.Silo;
 
 import java.util.Map;
 

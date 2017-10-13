@@ -3,7 +3,7 @@ package com.github.patwakeem.asm.client;
 import com.github.patwakeem.asm.authentication.AsmAuthentication;
 import com.github.patwakeem.asm.authentication.AsmCredentialsAuthentication;
 import com.github.patwakeem.asm.authentication.AsmEnvironmentAuthentication;
-import com.github.patwakeem.asm.plainobjects.Silo;
+import com.github.patwakeem.asm.enumeration.Silo;
 import org.junit.Before;
 import org.junit.Test;
 

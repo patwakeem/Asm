@@ -1,6 +1,7 @@
 package com.github.patwakeem.asm.plainobjects;
 
 
+import com.github.patwakeem.asm.enumeration.AsmCheckInterval;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -77,6 +78,11 @@ public class CreateBrowserCheckBody implements CreateCheckBody {
 
     public void setIntervalSeconds(Integer intervalSeconds) {
         this.intervalSeconds = intervalSeconds;
+    }
+
+    @Override
+    public void setIntervalSeconds(AsmCheckInterval asmCheckInterval) {
+        this.intervalSeconds = Integer.parseInt(asmCheckInterval.toString());
     }
 
     public Integer getMaxAttempts() {

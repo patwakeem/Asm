@@ -1,6 +1,7 @@
 package com.github.patwakeem.asm.plainobjects;
 
 
+import com.github.patwakeem.asm.enumeration.AsmCheckInterval;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -98,6 +99,11 @@ public class CreatePortCheckBody implements CreateCheckBody {
 
     public void setLocationCode(String locationCode) {
         this.locationCode = locationCode;
+    }
+
+    @Override
+    public void setIntervalSeconds(AsmCheckInterval asmCheckInterval) {
+        this.intervalSeconds = Integer.parseInt(asmCheckInterval.toString());
     }
 
     public void sanitizeHost() {

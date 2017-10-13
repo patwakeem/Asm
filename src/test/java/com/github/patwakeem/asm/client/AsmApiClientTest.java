@@ -2,7 +2,11 @@ package com.github.patwakeem.asm.client;
 
 import com.github.patwakeem.asm.authentication.AsmAuthentication;
 import com.github.patwakeem.asm.authentication.AsmEnvironmentAuthentication;
-import com.github.patwakeem.asm.plainobjects.*;
+import com.github.patwakeem.asm.enumeration.CheckType;
+import com.github.patwakeem.asm.plainobjects.AddGroupBody;
+import com.github.patwakeem.asm.plainobjects.CreateBrowserCheckBody;
+import com.github.patwakeem.asm.plainobjects.CreateCheckBody;
+import com.github.patwakeem.asm.plainobjects.GetFprResultByIdBody;
 import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
 import com.github.patwakeem.asm.util.DateHelper;

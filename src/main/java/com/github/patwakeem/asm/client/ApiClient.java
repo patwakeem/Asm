@@ -1,5 +1,6 @@
 package com.github.patwakeem.asm.client;
 
+import com.github.patwakeem.asm.enumeration.CheckType;
 import com.github.patwakeem.asm.plainobjects.*;
 import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
