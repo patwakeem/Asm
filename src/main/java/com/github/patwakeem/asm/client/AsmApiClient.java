@@ -78,10 +78,6 @@ public class AsmApiClient implements ApiClient {
 
     @Override
     public ResponseWrapper runCheck(@NonNull AsmCheck asmCheck) throws IOException {
-        if (asmCheck.getId() == null) {
-            throw new IllegalArgumentException();
-        }
-
         return runCheck(asmCheck.getId());
     }
 
@@ -99,10 +95,6 @@ public class AsmApiClient implements ApiClient {
 
     @Override
     public ResponseWrapper deleteCheck(@NonNull AsmCheck asmCheck) throws IOException {
-        if (asmCheck.getId() == null) {
-            throw new IllegalArgumentException();
-        }
-
         return deleteCheck(asmCheck.getId());
     }
 
@@ -130,10 +122,6 @@ public class AsmApiClient implements ApiClient {
 
     @Override
     public ResponseWrapper deleteGroup(@NonNull AsmGroup asmGroup) throws IOException {
-        if (asmGroup.getId() == null) {
-            throw new IllegalArgumentException();
-        }
-
         return deleteGroup(asmGroup.getId());
     }
 
