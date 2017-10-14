@@ -47,7 +47,8 @@ public class AsmApiClient implements ApiClient {
 
     @Override
     public Optional<AsmCheck> getCheck(int checkId) throws IOException {
-        return Optional.ofNullable(apiService.getCheck(silo, checkId, authTicket).execute().body());
+        AsmCheck body = apiService.getCheck(silo, checkId, authTicket).execute().body();
+        return Optional.ofNullable(body);
     }
 
     @Override

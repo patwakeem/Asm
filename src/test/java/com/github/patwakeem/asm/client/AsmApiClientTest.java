@@ -3,10 +3,7 @@ package com.github.patwakeem.asm.client;
 import com.github.patwakeem.asm.authentication.AsmAuthentication;
 import com.github.patwakeem.asm.authentication.AsmEnvironmentAuthentication;
 import com.github.patwakeem.asm.enumeration.CheckType;
-import com.github.patwakeem.asm.plainobjects.AddGroupBody;
-import com.github.patwakeem.asm.plainobjects.CreateBrowserCheckBody;
-import com.github.patwakeem.asm.plainobjects.CreateCheckBody;
-import com.github.patwakeem.asm.plainobjects.GetFprResultByIdBody;
+import com.github.patwakeem.asm.plainobjects.*;
 import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
 import com.github.patwakeem.asm.util.DateHelper;
@@ -36,7 +33,7 @@ public class AsmApiClientTest {
     @Test
     public void testGetAllChecks() throws Exception {
         Call mockedReturn = Mockito.mock(Call.class);
-        Response r = Response.success(new Object());
+        Response r = Response.success(new ArrayList<>());
 
         Mockito.doReturn(mockedReturn).when(mockService).getAllChecks(1, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
@@ -49,7 +46,7 @@ public class AsmApiClientTest {
     @Test
     public void testGetCheck() throws Exception {
         Call mockedReturn = Mockito.mock(Call.class);
-        Response r = Response.success(new Object());
+        Response r = Response.success(new AsmCheck());
 
         Mockito.doReturn(mockedReturn).when(mockService).getCheck(1, 1, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
@@ -132,7 +129,7 @@ public class AsmApiClientTest {
     @Test
     public void testGetGroups() throws IOException {
         Call mockedReturn = Mockito.mock(Call.class);
-        Response r = Response.success(new Object());
+        Response r = Response.success(new ArrayList<>());
 
         Mockito.doReturn(mockedReturn).when(mockService).getGroups(1, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
@@ -145,7 +142,7 @@ public class AsmApiClientTest {
     @Test
     public void testGetGroupChecks() throws IOException {
         Call mockedReturn = Mockito.mock(Call.class);
-        Response r = Response.success(new Object());
+        Response r = Response.success(new ArrayList<>());
 
         Mockito.doReturn(mockedReturn).when(mockService).getGroupChecks(1, 1, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
@@ -199,7 +196,7 @@ public class AsmApiClientTest {
     @Test
     public void testGetFprUrlDetailsByResultId() throws IOException {
         Call mockedReturn = Mockito.mock(Call.class);
-        Response r = Response.success(new Object());
+        Response r = Response.success(new FprUrlResults());
         GetFprResultByIdBody getFprResultByIdBody = new GetFprResultByIdBody();
 
         Mockito.doReturn(mockedReturn).when(mockService).getFprUrlDetailsByResultId(1, 1, getFprResultByIdBody, authentication.toString());
