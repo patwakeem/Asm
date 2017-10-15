@@ -9,8 +9,18 @@ Feature list:
  * Get Check Results
  * Create/Ready/Update/Delete Check Groups
  * Kick off check runs
+ 
+## Installation via Maven
 
-Samples
+```xml
+        <dependency>
+            <groupId>com.github.patwakeem</groupId>
+            <artifactId>asm</artifactId>
+            <version>2017.10.14</version>
+        </dependency>
+```
+
+## Samples
 * Create an ASM client object. This is the first step for all API operations.
 
 ```java
