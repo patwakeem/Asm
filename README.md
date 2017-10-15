@@ -33,6 +33,10 @@ class Example {
 
 ```
 
+* Determining your silo:
+If your API endpoint in this [page](https://wpm.apicasystem.com/Tools/ApiSettings) is wpm.apicasystem.com then you should use silo one. If you have wpm2.apicasystem.com then you should use silo two.
+
+
 * List check groups and view subgroups
 
 ```java
