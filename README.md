@@ -17,8 +17,9 @@ Samples
 class Example {
     
 //  Environment variables: 
-//  ASM_API_KEY
-//  ASM_API_SILO
+//  ASM_API_KEY = your auth ticket
+//  ASM_API_SILO = 1 or 2
+//  See note below to determine your silo. 
     public void connectWithEnvironmentVariables() {
         AsmAuthentication a = new AsmEnvironmentAuthentication();
         AsmApiClient asmApiClient = new AsmApiClient(a);
@@ -33,7 +34,7 @@ class Example {
 
 ```
 
-* Determining your silo:
+* Note: determining your silo
 If your API endpoint in this [page](https://wpm.apicasystem.com/Tools/ApiSettings) is api-wpm.apicasystem.com then you should use silo one. If you have api-wpm2.apicasystem.com then you should use silo two.
 
 
