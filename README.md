@@ -13,11 +13,11 @@ Feature list:
 ## Installation via Maven
 
 ```xml
-        <dependency>
-            <groupId>com.github.patwakeem</groupId>
-            <artifactId>asm</artifactId>
-            <version>2017.10.14</version>
-        </dependency>
+<dependency>
+    <groupId>com.github.patwakeem</groupId>
+    <artifactId>asm</artifactId>
+    <version>2017.10.14</version>
+</dependency>
 ```
 
 ## Samples
