@@ -15,6 +15,12 @@ public class ReactiveAsmApiClientTest {
     private ReactiveApiClient asmApiClient;
     private final AsmAuthentication authentication = new AsmCredentialsAuthentication("auth", Silo.ONE);
 
+    private final int CHECK_ID = 1;
+    private final int GROUP_ID = 1;
+    private final int SILO = 1;
+
+    private final Observable mockedReturn = Mockito.mock(Observable.class);
+
     @Mock
     private ReactiveAsmApiService mockService = Mockito.mock(ReactiveAsmApiService.class);
 
@@ -26,16 +32,20 @@ public class ReactiveAsmApiClientTest {
 
     @Test
     public void getAllChecks() throws Exception {
-        Observable mockedReturn = Mockito.mock(Observable.class);
-        Mockito.doReturn(mockedReturn).when(mockService).getChecks(1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getChecks(SILO, authentication.toString());
 
         asmApiClient.getAllChecks();
 
-        Mockito.verify(mockService).getChecks(1, authentication.toString());
+        Mockito.verify(mockService).getChecks(SILO, authentication.toString());
     }
 
     @Test
     public void getCheck() throws Exception {
+        Mockito.doReturn(mockedReturn).when(mockService).getCheck(SILO, CHECK_ID, authentication.toString());
+
+        asmApiClient.getCheck(CHECK_ID);
+
+        Mockito.verify(mockService).getCheck(SILO, CHECK_ID, authentication.toString());
     }
 
     @Test
