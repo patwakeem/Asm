@@ -176,7 +176,9 @@ class Example {
         
         CreateCheckBody createCheckBody = new CreateBrowserCheckBody();
         createCheckBody.setLocationCode(asmLocation.getLocationCode());
-        createCheckBody.setIntervalSeconds(600);
+        
+        createCheckBody.setIntervalSeconds(AsmCheckInterval.FIVE_MIN);
+  
         createCheckBody.setMaxAttempts(5);
         createCheckBody.setName("test test test");
         createCheckBody.setTarget("www.google.com");
