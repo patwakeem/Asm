@@ -1,8 +1,9 @@
 package com.github.patwakeem.asm.client;
 
 import com.github.patwakeem.asm.authentication.AsmAuthentication;
-import com.github.patwakeem.asm.authentication.AsmEnvironmentAuthentication;
+import com.github.patwakeem.asm.authentication.AsmCredentialsAuthentication;
 import com.github.patwakeem.asm.enumeration.CheckType;
+import com.github.patwakeem.asm.enumeration.Silo;
 import com.github.patwakeem.asm.plainobjects.*;
 import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
@@ -21,7 +22,13 @@ import java.util.ArrayList;
 public class AsmApiClientTest {
 
     private ApiClient asmApiClient;
-    private final AsmAuthentication authentication = new AsmEnvironmentAuthentication();
+    private final AsmAuthentication authentication = new AsmCredentialsAuthentication("auth", Silo.ONE);
+
+    private final int SILO = 1;
+    private final int CHECK_ID = 1;
+    private final int GROUP_ID = 1;
+
+    private final Call mockedReturn = Mockito.mock(Call.class);
 
     @Mock
     private AsmApiService mockService = Mockito.mock(AsmApiService.class);
@@ -34,178 +41,164 @@ public class AsmApiClientTest {
 
     @Test
     public void testGetAllChecks() throws Exception {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new ArrayList<>());
 
-        Mockito.doReturn(mockedReturn).when(mockService).getAllChecks(1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getAllChecks(SILO, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.getAllChecks();
 
-        Mockito.verify(mockService).getAllChecks(1, authentication.toString());
+        Mockito.verify(mockService).getAllChecks(SILO, authentication.toString());
     }
 
     @Test
     public void testGetCheck() throws Exception {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new AsmCheck());
 
-        Mockito.doReturn(mockedReturn).when(mockService).getCheck(1, 1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getCheck(SILO, CHECK_ID, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.getCheck(1);
 
-        Mockito.verify(mockService).getCheck(1, 1, authentication.toString());
+        Mockito.verify(mockService).getCheck(SILO, CHECK_ID, authentication.toString());
     }
 
     @Test
     public void testGetCheckHistory() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new ArrayList<>());
         String utcTime = DateHelper.formatUnixTimeForAsmApi(System.currentTimeMillis());
 
-        Mockito.doReturn(mockedReturn).when(mockService).getCheckHistory(1, 1, utcTime, utcTime, 1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getCheckHistory(SILO, CHECK_ID, utcTime, utcTime, 1, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.getCheckHistory(new GetCheckHistoryRequest(utcTime, utcTime, 1));
 
-        Mockito.verify(mockService).getCheckHistory(1, 1, utcTime, utcTime, 1, authentication.toString());
+        Mockito.verify(mockService).getCheckHistory(SILO, CHECK_ID, utcTime, utcTime, 1, authentication.toString());
     }
 
     @Test
     public void testGetLocationsByCheckType() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new ArrayList<>());
 
-        Mockito.doReturn(mockedReturn).when(mockService).getLocationsByCheckType(1, CheckType.BROWSER.toString(), authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getLocationsByCheckType(SILO, CheckType.BROWSER.toString(), authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.getLocationsByCheckType(CheckType.BROWSER);
 
-        Mockito.verify(mockService).getLocationsByCheckType(1, CheckType.BROWSER.toString(), authentication.toString());
+        Mockito.verify(mockService).getLocationsByCheckType(SILO, CheckType.BROWSER.toString(), authentication.toString());
     }
 
     @Test
     public void testRunCheck() throws IOException {
-
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
 
-        Mockito.doReturn(mockedReturn).when(mockService).runCheck(1, 1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).runCheck(SILO, CHECK_ID, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.runCheck(1);
 
-        Mockito.verify(mockService).runCheck(1, 1, authentication.toString());
+        Mockito.verify(mockService).runCheck(SILO, CHECK_ID, authentication.toString());
     }
 
     @Test
     public void testCreateCheck() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
 
         CreateCheckBody createCheckBody = new CreateBrowserCheckBody();
         CreateCheckRequest createCheckRequest = new CreateCheckRequest(CheckType.BROWSER, createCheckBody);
 
-        Mockito.doReturn(mockedReturn).when(mockService).createCheck(1, CheckType.BROWSER.toString(), createCheckRequest.getBody(), authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).createCheck(SILO, CheckType.BROWSER.toString(), createCheckRequest.getBody(), authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.createCheck(createCheckRequest);
 
-        Mockito.verify(mockService).createCheck(1, CheckType.BROWSER.toString(), createCheckBody.getJson(), authentication.toString());
+        Mockito.verify(mockService).createCheck(SILO, CheckType.BROWSER.toString(), createCheckBody.getJson(), authentication.toString());
     }
 
     @Test
     public void testDeleteCheck() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
 
-        Mockito.doReturn(mockedReturn).when(mockService).deleteCheck(1, 1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).deleteCheck(SILO, CHECK_ID, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
-        asmApiClient.deleteCheck(1);
+        asmApiClient.deleteCheck(CHECK_ID);
 
-        Mockito.verify(mockService).deleteCheck(1, 1, authentication.toString());
+        Mockito.verify(mockService).deleteCheck(SILO, CHECK_ID, authentication.toString());
     }
 
     @Test
     public void testGetGroups() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new ArrayList<>());
 
-        Mockito.doReturn(mockedReturn).when(mockService).getGroups(1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getGroups(SILO, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.getGroups();
 
-        Mockito.verify(mockService).getGroups(1, authentication.toString());
+        Mockito.verify(mockService).getGroups(SILO, authentication.toString());
     }
 
     @Test
     public void testGetGroupChecks() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new ArrayList<>());
 
-        Mockito.doReturn(mockedReturn).when(mockService).getGroupChecks(1, 1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getGroupChecks(SILO, GROUP_ID, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
-        asmApiClient.getGroupChecks(1);
+        asmApiClient.getGroupChecks(GROUP_ID);
 
-        Mockito.verify(mockService).getGroupChecks(1, 1, authentication.toString());
+        Mockito.verify(mockService).getGroupChecks(SILO, GROUP_ID, authentication.toString());
     }
 
     @Test
     public void testCreateGroup() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
         AddGroupBody addGroupBody = new AddGroupBody();
 
-        Mockito.doReturn(mockedReturn).when(mockService).createGroup(1, addGroupBody, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).createGroup(SILO, addGroupBody, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
         asmApiClient.createGroup(addGroupBody);
 
-        Mockito.verify(mockService).createGroup(1, addGroupBody, authentication.toString());
+        Mockito.verify(mockService).createGroup(SILO, addGroupBody, authentication.toString());
     }
 
     @Test
     public void testDeleteGroup() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
 
-        Mockito.doReturn(mockedReturn).when(mockService).deleteGroup(1, 1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).deleteGroup(SILO, GROUP_ID, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
-        asmApiClient.deleteGroup(1);
+        asmApiClient.deleteGroup(GROUP_ID);
 
-        Mockito.verify(mockService).deleteGroup(1, 1, authentication.toString());
+        Mockito.verify(mockService).deleteGroup(SILO, GROUP_ID, authentication.toString());
     }
 
     @Test
     public void testUpdateGroup() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new Object());
         AddGroupBody addGroupBody = new AddGroupBody();
 
-        Mockito.doReturn(mockedReturn).when(mockService).updateGroup(addGroupBody, 1, 1, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).updateGroup(addGroupBody, SILO, GROUP_ID, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
-        asmApiClient.updateGroup(1, addGroupBody);
+        asmApiClient.updateGroup(GROUP_ID, addGroupBody);
 
-        Mockito.verify(mockService).updateGroup(addGroupBody, 1, 1, authentication.toString());
+        Mockito.verify(mockService).updateGroup(addGroupBody, SILO, GROUP_ID, authentication.toString());
     }
 
     @Test
     public void testGetFprUrlDetailsByResultId() throws IOException {
-        Call mockedReturn = Mockito.mock(Call.class);
         Response r = Response.success(new FprUrlResults());
         GetFprResultByIdBody getFprResultByIdBody = new GetFprResultByIdBody();
 
-        Mockito.doReturn(mockedReturn).when(mockService).getFprUrlDetailsByResultId(1, 1, getFprResultByIdBody, authentication.toString());
+        Mockito.doReturn(mockedReturn).when(mockService).getFprUrlDetailsByResultId(SILO, CHECK_ID, getFprResultByIdBody, authentication.toString());
         Mockito.doReturn(r).when(mockedReturn).execute();
 
-        asmApiClient.getFprUrlDetailsByResultId(1, getFprResultByIdBody);
+        asmApiClient.getFprUrlDetailsByResultId(CHECK_ID, getFprResultByIdBody);
 
-        Mockito.verify(mockService).getFprUrlDetailsByResultId(1, 1, getFprResultByIdBody, authentication.toString());
+        Mockito.verify(mockService).getFprUrlDetailsByResultId(SILO, CHECK_ID, getFprResultByIdBody, authentication.toString());
     }
 }
