@@ -41,7 +41,7 @@ public class ReactiveAsmApiClient implements ReactiveApiClient {
 
     @Override
     public Observable<List<AsmCheck>> getAllChecks() throws IOException {
-        return null;
+        return apiService.getChecks(silo, authTicket);
     }
 
     @Override

@@ -12,6 +12,12 @@ public interface ReactiveAsmApiService {
 
     //    Check Calls
     @GET("https://api-wpm{silo}.apicasystem.com/v3/Checks/{id}")
+    Observable<List<AsmCheck>> getChecks(
+            @Path("silo") int silo,
+            @Query("auth_ticket") String authTicket
+    );
+
+    @GET("https://api-wpm{silo}.apicasystem.com/v3/Checks/{id}")
     Observable<AsmCheck> getCheck(
             @Path("silo") int silo,
             @Path("id") int id,
