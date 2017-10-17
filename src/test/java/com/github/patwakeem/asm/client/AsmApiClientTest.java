@@ -208,4 +208,19 @@ public class AsmApiClientTest {
 
         Mockito.verify(mockService).getFprUrlDetailsByResultId(1, 1, getFprResultByIdBody, authentication.toString());
     }
+
+    @Test
+    public void testScreenshotByResultIdCall() throws IOException {
+
+        Call mockedReturn = Mockito.mock(Call.class);
+        Response r = Response.success(new ArrayList<>());
+
+        Mockito.doReturn(mockedReturn).when(mockService).getScreenshotMetaDataByResultId(1, 1, "result", authentication.toString());
+        Mockito.doReturn(r).when(mockedReturn).execute();
+
+        asmApiClient.getScreenshotMetaDataByResultId(1, "result");
+
+        Mockito.verify(mockService).getScreenshotMetaDataByResultId(1, 1, "result", authentication.toString());
+
+    }
 }

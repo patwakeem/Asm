@@ -6,7 +6,7 @@
 
     <groupId>com.github.patwakeem</groupId>
     <artifactId>asm</artifactId>
-    <version>2017.10.14</version>
+    <version>2017.10.16-SNAPSHOT</version>
 
     <name>com.github.patwakeem.asm</name>
     <description>Library for interacting with the Apica ASM API.</description>
@@ -129,6 +129,18 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.reactivex.rxjava2</groupId>
+            <artifactId>rxjava</artifactId>
+            <version>2.1.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>adapter-rxjava2</artifactId>
+            <version>2.3.0</version>
         </dependency>
 
         <dependency>

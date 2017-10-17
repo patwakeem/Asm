@@ -1,22 +1,25 @@
-package com.github.patwakeem.asm.client;
+package com.github.patwakeem.asm.reactive;
 
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 import java.util.concurrent.TimeUnit;
 
-class AsmApi {
-    private static AsmApiService REST_CLIENT;
+public class ReactiveAsmApi {
+
+    private static ReactiveAsmApiService REST_CLIENT;
     private static final String API_URL = "https://api-wpm.apicasystem.com/v3/";
 
     static {
         setupRestClient();
     }
 
-    private AsmApi() {}
+    private ReactiveAsmApi() {
+    }
 
-    static AsmApiService get() {
+    public static ReactiveAsmApiService get() {
         return REST_CLIENT;
     }
 
@@ -30,9 +33,10 @@ class AsmApi {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(API_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
 
-        REST_CLIENT = retrofit.create(AsmApiService.class);
+        REST_CLIENT = retrofit.create(ReactiveAsmApiService.class);
     }
 }
