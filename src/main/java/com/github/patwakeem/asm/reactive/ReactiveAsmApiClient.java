@@ -17,6 +17,8 @@ public class ReactiveAsmApiClient implements ReactiveApiClient {
     private String authTicket;
     private int silo;
 
+    private final int DETAIL_LEVEL = 1;
+
     public ReactiveAsmApiClient(String authTicket, Silo silo) {
         this.authTicket = authTicket;
         setSiloFromObject(silo);
@@ -51,12 +53,19 @@ public class ReactiveAsmApiClient implements ReactiveApiClient {
 
     @Override
     public Observable<List<AsmCheckDetailHistory>> getCheckHistory(GetCheckHistoryRequest getCheckHistoryRequest) throws IOException {
-        return null;
+        return apiService.getCheckHistory(
+                silo,
+                getCheckHistoryRequest.getCheckId(),
+                getCheckHistoryRequest.getFromUtc(),
+                getCheckHistoryRequest.getToUtc(),
+                DETAIL_LEVEL,
+                authTicket
+        );
     }
 
     @Override
     public Observable<List<AsmLocation>> getLocationsByCheckType(CheckType checkType) throws IOException {
-        return null;
+        return apiService.getLocationsByCheckType(silo, checkType.toString(), authTicket);
     }
 
     @Override
