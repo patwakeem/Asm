@@ -7,6 +7,7 @@ import com.github.patwakeem.asm.plainobjects.*;
 import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
 import io.reactivex.Observable;
+import okhttp3.ResponseBody;
 
 import java.io.IOException;
 import java.util.List;
@@ -69,38 +70,38 @@ public class ReactiveAsmApiClient implements ReactiveApiClient {
     }
 
     @Override
-    public Observable<ResponseWrapper> runCheck(int checkId) throws IOException {
-        return null;
+    public Observable<ResponseBody> runCheck(int checkId) throws IOException {
+        return apiService.runCheck(silo, checkId, authTicket);
     }
 
     @Override
-    public Observable<ResponseWrapper> runCheck(AsmCheck asmCheck) throws IOException {
-        return null;
+    public Observable<ResponseBody> runCheck(AsmCheck asmCheck) throws IOException {
+        return apiService.runCheck(silo, asmCheck.getId(), authTicket);
     }
 
     @Override
-    public Observable<ResponseWrapper> createCheck(CreateCheckRequest createCheckRequest) throws IOException {
-        return null;
+    public Observable<ResponseBody> createCheck(CreateCheckRequest createCheckRequest) throws IOException {
+        return apiService.createCheck(silo, createCheckRequest.getCheckType().toString(), createCheckRequest.getBody(), authTicket);
     }
 
     @Override
-    public Observable<ResponseWrapper> deleteCheck(int checkId) throws IOException {
-        return null;
+    public Observable<ResponseBody> deleteCheck(int checkId) throws IOException {
+        return apiService.deleteCheck(silo, checkId, authTicket);
     }
 
     @Override
-    public Observable<ResponseWrapper> deleteCheck(AsmCheck asmCheck) throws IOException {
-        return null;
+    public Observable<ResponseBody> deleteCheck(AsmCheck asmCheck) throws IOException {
+        return apiService.deleteCheck(silo, asmCheck.getId(), authTicket);
     }
 
     @Override
     public Observable<List<ScreenshotMetaData>> getScreenshotMetaDataByResultId(int checkId, String resultId) throws IOException {
-        return null;
+        return apiService.getScreenshotMetaDataByResultId(silo, checkId, resultId, authTicket);
     }
 
     @Override
     public Observable<FprUrlResults> getFprUrlDetailsByResultId(int checkId, GetFprResultByIdBody getFprResultByIdBody) throws IOException {
-        return null;
+        return apiService.getFprUrlDetailsByResultId(silo, checkId, getFprResultByIdBody, authTicket);
     }
 
     @Override
@@ -114,22 +115,22 @@ public class ReactiveAsmApiClient implements ReactiveApiClient {
     }
 
     @Override
-    public Observable<ResponseWrapper> createGroup(AddGroupBody addGroupBody) throws IOException {
+    public Observable<ResponseBody> createGroup(AddGroupBody addGroupBody) throws IOException {
         return null;
     }
 
     @Override
-    public Observable<ResponseWrapper> deleteGroup(int groupId) throws IOException {
+    public Observable<ResponseBody> deleteGroup(int groupId) throws IOException {
         return null;
     }
 
     @Override
-    public Observable<ResponseWrapper> deleteGroup(AsmGroup asmGroup) throws IOException {
+    public Observable<ResponseBody> deleteGroup(AsmGroup asmGroup) throws IOException {
         return null;
     }
 
     @Override
-    public Observable<ResponseWrapper> updateGroup(int groupId, AddGroupBody addGroupBody) throws IOException {
+    public Observable<ResponseBody> updateGroup(int groupId, AddGroupBody addGroupBody) throws IOException {
         return null;
     }
 }

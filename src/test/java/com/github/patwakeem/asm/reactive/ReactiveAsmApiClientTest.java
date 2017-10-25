@@ -4,6 +4,10 @@ import com.github.patwakeem.asm.authentication.AsmAuthentication;
 import com.github.patwakeem.asm.authentication.AsmCredentialsAuthentication;
 import com.github.patwakeem.asm.enumeration.CheckType;
 import com.github.patwakeem.asm.enumeration.Silo;
+import com.github.patwakeem.asm.plainobjects.CreateBrowserCheckBody;
+import com.github.patwakeem.asm.plainobjects.CreateCheckBody;
+import com.github.patwakeem.asm.plainobjects.GetFprResultByIdBody;
+import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
 import com.github.patwakeem.asm.util.DateHelper;
 import io.reactivex.Observable;
@@ -34,7 +38,7 @@ public class ReactiveAsmApiClientTest {
     }
 
     @Test
-    public void getAllChecks() throws Exception {
+    public void testReactiveGetAllChecks() throws Exception {
         Mockito.doReturn(mockedReturn).when(mockService).getChecks(SILO, authentication.toString());
 
         asmApiClient.getAllChecks();
@@ -43,7 +47,7 @@ public class ReactiveAsmApiClientTest {
     }
 
     @Test
-    public void getCheck() throws Exception {
+    public void testReactiveGetCheck() throws Exception {
         Mockito.doReturn(mockedReturn).when(mockService).getCheck(SILO, CHECK_ID, authentication.toString());
 
         asmApiClient.getCheck(CHECK_ID);
@@ -52,7 +56,7 @@ public class ReactiveAsmApiClientTest {
     }
 
     @Test
-    public void getCheckHistory() throws Exception {
+    public void testReactiveGetCheckHistory() throws Exception {
         String fromUtc = DateHelper.formatUnixTimeForAsmApi(System.currentTimeMillis() - 1000L);
         String toUtc = DateHelper.formatUnixTimeForAsmApi(System.currentTimeMillis());
         int detailLevel = 1;
@@ -66,7 +70,7 @@ public class ReactiveAsmApiClientTest {
     }
 
     @Test
-    public void getLocationsByCheckType() throws Exception {
+    public void testReactiveGetLocationsByCheckType() throws Exception {
         Mockito.doReturn(mockedReturn).when(mockService).getLocationsByCheckType(SILO, CheckType.BROWSER.toString(), authentication.toString());
 
         asmApiClient.getLocationsByCheckType(CheckType.BROWSER);
@@ -75,42 +79,71 @@ public class ReactiveAsmApiClientTest {
     }
 
     @Test
-    public void runCheck() throws Exception {
+    public void testReactiveRunCheck() throws Exception {
+        Mockito.doReturn(mockedReturn).when(mockService).runCheck(SILO, CHECK_ID, authentication.toString());
+
+        asmApiClient.runCheck(CHECK_ID);
+
+        Mockito.verify(mockService).runCheck(SILO, CHECK_ID, authentication.toString());
     }
 
     @Test
-    public void createCheck() throws Exception {
+    public void testReactiveCreateCheck() throws Exception {
+        CreateCheckBody createCheckBody = new CreateBrowserCheckBody();
+        CreateCheckRequest createCheckRequest = new CreateCheckRequest(CheckType.BROWSER, createCheckBody);
+
+        Mockito.doReturn(mockedReturn).when(mockService).createCheck(SILO, "browser", createCheckRequest.getBody(), authentication.toString());
+
+        asmApiClient.createCheck(createCheckRequest);
+
+        Mockito.verify(mockService).createCheck(SILO, "browser", createCheckRequest.getBody(), authentication.toString());
     }
 
     @Test
-    public void deleteCheck() throws Exception {
+    public void testReactiveDeleteCheck() throws Exception {
+        Mockito.doReturn(mockedReturn).when(mockService).deleteCheck(SILO, CHECK_ID, authentication.toString());
+
+        asmApiClient.deleteCheck(CHECK_ID);
+
+        Mockito.verify(mockService).deleteCheck(SILO, CHECK_ID, authentication.toString());
     }
 
     @Test
-    public void getScreenshotMetaDataByResultId() throws Exception {
+    public void testReactiveGetScreenshotMetaDataByResultId() throws Exception {
+        Mockito.doReturn(mockedReturn).when(mockService).getScreenshotMetaDataByResultId(SILO, CHECK_ID, "result", authentication.toString());
+
+        asmApiClient.getScreenshotMetaDataByResultId(CHECK_ID, "result");
+
+        Mockito.verify(mockService).getScreenshotMetaDataByResultId(SILO, CHECK_ID, "result", authentication.toString());
     }
 
     @Test
-    public void getFprUrlDetailsByResultId() throws Exception {
+    public void testReactiveGetFprUrlDetailsByResultId() throws Exception {
+        GetFprResultByIdBody getResultByIdBody = new GetFprResultByIdBody();
+        Mockito.doReturn(mockedReturn).when(mockService).getFprUrlDetailsByResultId(SILO, CHECK_ID, getResultByIdBody, authentication.toString());
+
+        asmApiClient.getFprUrlDetailsByResultId(CHECK_ID, getResultByIdBody);
+
+        Mockito.verify(mockService).getFprUrlDetailsByResultId(SILO, CHECK_ID, getResultByIdBody, authentication.toString());
     }
 
     @Test
-    public void getGroups() throws Exception {
+    public void testReactiveGetGroups() throws Exception {
     }
 
     @Test
-    public void getGroupChecks() throws Exception {
+    public void testReactiveGetGroupChecks() throws Exception {
     }
 
     @Test
-    public void createGroup() throws Exception {
+    public void testReactiveCreateGroup() throws Exception {
     }
 
     @Test
-    public void deleteGroup() throws Exception {
+    public void testReactiveDeleteGroup() throws Exception {
     }
 
     @Test
-    public void updateGroup() throws Exception {
+    public void testReactiveUpdateGroup() throws Exception {
     }
 }
