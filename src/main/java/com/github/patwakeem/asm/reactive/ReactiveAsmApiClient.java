@@ -106,31 +106,31 @@ public class ReactiveAsmApiClient implements ReactiveApiClient {
 
     @Override
     public Observable<List<AsmTopLevelGroup>> getGroups() throws IOException {
-        return null;
+        return apiService.getGroups(silo, authTicket);
     }
 
     @Override
     public Observable<List<Integer>> getGroupChecks(int groupId) throws IOException {
-        return null;
+        return apiService.getGroupChecks(silo, groupId, authTicket);
     }
 
     @Override
     public Observable<ResponseBody> createGroup(AddGroupBody addGroupBody) throws IOException {
-        return null;
+        return apiService.createGroup(silo, addGroupBody, authTicket);
     }
 
     @Override
     public Observable<ResponseBody> deleteGroup(int groupId) throws IOException {
-        return null;
+        return apiService.deleteGroup(silo, groupId, authTicket);
     }
 
     @Override
     public Observable<ResponseBody> deleteGroup(AsmGroup asmGroup) throws IOException {
-        return null;
+        return apiService.deleteGroup(silo, asmGroup.getId(), authTicket);
     }
 
     @Override
     public Observable<ResponseBody> updateGroup(int groupId, AddGroupBody addGroupBody) throws IOException {
-        return null;
+        return apiService.updateGroup(addGroupBody, silo, groupId, authTicket);
     }
 }

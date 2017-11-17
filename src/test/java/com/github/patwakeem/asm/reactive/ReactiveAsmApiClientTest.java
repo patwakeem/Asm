@@ -4,6 +4,7 @@ import com.github.patwakeem.asm.authentication.AsmAuthentication;
 import com.github.patwakeem.asm.authentication.AsmCredentialsAuthentication;
 import com.github.patwakeem.asm.enumeration.CheckType;
 import com.github.patwakeem.asm.enumeration.Silo;
+import com.github.patwakeem.asm.plainobjects.AddGroupBody;
 import com.github.patwakeem.asm.plainobjects.CreateBrowserCheckBody;
 import com.github.patwakeem.asm.plainobjects.CreateCheckBody;
 import com.github.patwakeem.asm.plainobjects.GetFprResultByIdBody;
@@ -129,21 +130,44 @@ public class ReactiveAsmApiClientTest {
 
     @Test
     public void testReactiveGetGroups() throws Exception {
+        Mockito.doReturn(mockedReturn).when(mockService).getGroups(SILO, authentication.toString());
+
+        asmApiClient.getGroups();
+
+        Mockito.verify(mockService).getGroups(SILO, authentication.toString());
     }
 
     @Test
     public void testReactiveGetGroupChecks() throws Exception {
+        Mockito.doReturn(mockedReturn).when(mockService).getGroupChecks(SILO, GROUP_ID, authentication.toString());
+
+        asmApiClient.getGroupChecks(GROUP_ID);
+
+        Mockito.verify(mockService).getGroupChecks(SILO, GROUP_ID, authentication.toString());
     }
 
     @Test
     public void testReactiveCreateGroup() throws Exception {
+        AddGroupBody addGroupBody = new AddGroupBody();
+        Mockito.doReturn(mockedReturn).when(mockService).createGroup(SILO, addGroupBody, authentication.toString());
+
+        asmApiClient.createGroup(addGroupBody);
+
+        Mockito.verify(mockService).createGroup(SILO, addGroupBody, authentication.toString());
     }
 
     @Test
     public void testReactiveDeleteGroup() throws Exception {
+        asmApiClient.deleteGroup(GROUP_ID);
+
+        Mockito.verify(mockService).deleteGroup(SILO, GROUP_ID, authentication.toString());
     }
 
     @Test
     public void testReactiveUpdateGroup() throws Exception {
+        AddGroupBody addGroupBody = new AddGroupBody();
+        asmApiClient.updateGroup(GROUP_ID, addGroupBody);
+
+        Mockito.verify(mockService).updateGroup(addGroupBody, SILO, GROUP_ID, authentication.toString());
     }
 }

@@ -28,4 +28,9 @@ public class AsmEnvironmentAuthentication implements AsmAuthentication {
     public String toString() {
         return authTicket;
     }
+
+    @Override
+    public String getAuthTicket() {
+        return authTicket;
+    }
 }

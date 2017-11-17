@@ -21,4 +21,9 @@ public class AsmCredentialsAuthentication implements AsmAuthentication {
     public String toString() {
         return authTicket;
     }
+
+    @Override
+    public String getAuthTicket() {
+        return authTicket;
+    }
 }

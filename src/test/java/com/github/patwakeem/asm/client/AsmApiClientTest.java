@@ -1,8 +1,9 @@
 package com.github.patwakeem.asm.client;
 
 import com.github.patwakeem.asm.authentication.AsmAuthentication;
-import com.github.patwakeem.asm.authentication.AsmEnvironmentAuthentication;
+import com.github.patwakeem.asm.authentication.AsmCredentialsAuthentication;
 import com.github.patwakeem.asm.enumeration.CheckType;
+import com.github.patwakeem.asm.enumeration.Silo;
 import com.github.patwakeem.asm.plainobjects.*;
 import com.github.patwakeem.asm.requests.CreateCheckRequest;
 import com.github.patwakeem.asm.requests.GetCheckHistoryRequest;
@@ -21,7 +22,8 @@ import java.util.ArrayList;
 public class AsmApiClientTest {
 
     private ApiClient asmApiClient;
-    private final AsmAuthentication authentication = new AsmEnvironmentAuthentication();
+
+    private final AsmAuthentication authentication = new AsmCredentialsAuthentication("auth", Silo.ONE);
 
     @Mock
     private AsmApiService mockService = Mockito.mock(AsmApiService.class);
