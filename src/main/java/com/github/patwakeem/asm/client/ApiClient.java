@@ -29,6 +29,8 @@ interface ApiClient {
 
     ResponseWrapper deleteCheck(AsmCheck asmCheck) throws IOException;
 
+    Optional<List<ScreenshotMetaData>> getScreenshotMetaDataByResultId(int checkId, String resultId) throws IOException;
+
     Optional<FprUrlResults> getFprUrlDetailsByResultId(int checkId, GetFprResultByIdBody getFprResultByIdBody) throws IOException;
 
     Optional<List<AsmTopLevelGroup>> getGroups() throws IOException;

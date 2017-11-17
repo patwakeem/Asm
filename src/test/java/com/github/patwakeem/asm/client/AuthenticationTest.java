@@ -20,17 +20,16 @@ public class AuthenticationTest {
 
     @Test
     public void testCreateApiClientWithCredentials() throws Exception {
-        AsmApiClient asmApiClient = new AsmApiClient(asmCredentialsAuthentication);
+        new AsmApiClient(asmCredentialsAuthentication);
     }
 
     @Test
     public void testCreateApiClientWithEnvironment() throws Exception {
-        AsmApiClient asmApiClient = new AsmApiClient(asmEnvironmentAuthentication);
-
+        new AsmApiClient(asmEnvironmentAuthentication);
     }
 
     @Test
     public void testCreateApiClientWithHardCodedValues() throws Exception {
-        AsmApiClient asmApiClient = new AsmApiClient("auth", Silo.ONE);
+        new AsmApiClient("auth", Silo.ONE);
     }
 }

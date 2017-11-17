@@ -139,6 +139,13 @@ public class AsmApiClient implements ApiClient {
         );
     }
 
+    @Override
+    public Optional<List<ScreenshotMetaData>> getScreenshotMetaDataByResultId(int checkId, String resultId) throws IOException {
+        return Optional.ofNullable(
+                apiService.getScreenshotMetaDataByResultId(silo, checkId, resultId, authTicket).execute().body()
+        );
+    }
+
     public String getAuthTicket() {
         return authTicket;
     }
