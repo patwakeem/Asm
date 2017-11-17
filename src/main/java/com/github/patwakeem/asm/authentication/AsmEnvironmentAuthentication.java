@@ -33,4 +33,22 @@ public class AsmEnvironmentAuthentication implements AsmAuthentication {
     public String getAuthTicket() {
         return authTicket;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        AsmEnvironmentAuthentication that = (AsmEnvironmentAuthentication) o;
+
+        if (silo != that.silo) return false;
+        return authTicket != null ? authTicket.equals(that.authTicket) : that.authTicket == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = silo != null ? silo.hashCode() : 0;
+        result = 31 * result + (authTicket != null ? authTicket.hashCode() : 0);
+        return result;
+    }
 }
