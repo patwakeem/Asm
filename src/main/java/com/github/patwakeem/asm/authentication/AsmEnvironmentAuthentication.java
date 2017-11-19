@@ -41,8 +41,7 @@ public class AsmEnvironmentAuthentication implements AsmAuthentication {
 
         AsmEnvironmentAuthentication that = (AsmEnvironmentAuthentication) o;
 
-        if (silo != that.silo) return false;
-        return authTicket != null ? authTicket.equals(that.authTicket) : that.authTicket == null;
+        return silo == that.silo && (authTicket != null ? authTicket.equals(that.authTicket) : that.authTicket == null);
     }
 
     @Override

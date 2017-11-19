@@ -34,8 +34,7 @@ public class AsmCredentialsAuthentication implements AsmAuthentication {
 
         AsmCredentialsAuthentication that = (AsmCredentialsAuthentication) o;
 
-        if (authTicket != null ? !authTicket.equals(that.authTicket) : that.authTicket != null) return false;
-        return silo == that.silo;
+        return (authTicket != null ? authTicket.equals(that.authTicket) : that.authTicket == null) && silo == that.silo;
     }
 
     @Override
