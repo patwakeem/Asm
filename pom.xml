@@ -6,7 +6,7 @@
 
     <groupId>com.github.patwakeem</groupId>
     <artifactId>asm</artifactId>
-    <version>2017.10.16-SNAPSHOT</version>
+    <version>2018.4.8-SNAPSHOT</version>
 
     <name>com.github.patwakeem.asm</name>
     <description>Library for interacting with the Apica ASM API.</description>
