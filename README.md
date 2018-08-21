@@ -47,6 +47,22 @@ class Example {
 * Note: determining your silo
 If your API endpoint in this [page](https://wpm.apicasystem.com/Tools/ApiSettings) is api-wpm.apicasystem.com then you should use silo one. If you have api-wpm2.apicasystem.com then you should use silo two.
 
+* Get a check
+```java
+class Example {
+    public void listTopLevelGroups() {
+        AsmAuthentication a = new AsmEnvironmentAuthentication();
+        AsmApiClient asmApiClient = new AsmApiClient(a);
+        int checkId = 12345;
+        
+        Optional<AsmCheck> checkOptional = asmApiClient.getCheck(checkId);
+        
+//      Get check:
+        checkOptional.get();        
+    }
+}
+
+```
 
 * List check groups and view subgroups
 
